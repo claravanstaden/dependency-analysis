@@ -5,7 +5,6 @@ import java.util.Objects;
 public class Vertex {
 
     private String label;
-    private Boolean visited = false;
 
     public Vertex(String label) {
         this.label = label;
@@ -30,14 +29,6 @@ public class Vertex {
 
     public void setLabel(String label) {
         this.label = label;
-    }
-
-    public Boolean getVisited() {
-        return visited;
-    }
-
-    public void setVisited(Boolean visited) {
-        this.visited = visited;
     }
 
     public void printLabel() {

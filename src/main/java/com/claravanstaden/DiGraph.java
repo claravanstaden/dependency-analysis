@@ -51,9 +51,6 @@ public class DiGraph {
         }
 
         LinkedList<Edge> queue = new LinkedList<>(edges);
-        for (Edge neighbour : edges) {
-            neighbour.setVisited(true);
-        }
 
         List<Edge> dependencies = this.calculateVertexDependencies(queue);
 
@@ -63,13 +60,17 @@ public class DiGraph {
             edge.getTo().printLabel();
         }
 
-        this.resetVisited();
-
         System.out.println();
     }
 
     private List<Edge> calculateVertexDependencies(LinkedList<Edge> queue) {
+
         List<Edge> dependencies = new ArrayList<>();
+        List<String> visited = new ArrayList<>();
+
+        for (Edge item : queue) {
+            visited.add(item.getTo().getLabel());
+        }
 
         while (!queue.isEmpty()) {
             Edge element = queue.remove();
@@ -77,26 +78,15 @@ public class DiGraph {
 
             List<Edge> neighbours = digraph.get(element.getTo());
 
-            for (Edge n : neighbours) {
-                if (n != null && !n.getVisited()) {
-                    queue.add(n);
-                    n.setVisited(true);
+            for (Edge neighbour : neighbours) {
+                if (neighbour != null && !visited.contains(neighbour.getTo().getLabel())) {
+                    queue.add(neighbour);
+                    visited.add(neighbour.getTo().getLabel());
                 }
             }
         }
 
         return dependencies;
-    }
-
-    private void resetVisited() {
-        for (Map.Entry<Vertex, List<Edge>> vertexListEntry : digraph.entrySet()) {
-
-            List<Edge> edges = (List<Edge>) ((Map.Entry) vertexListEntry).getValue();
-
-            for (Edge edge : edges) {
-                edge.setVisited(false);
-            }
-        }
     }
 
     private void sortAlphabetically(List<Edge> sorted) {
