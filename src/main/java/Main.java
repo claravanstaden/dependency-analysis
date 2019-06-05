@@ -34,6 +34,12 @@ public class Main {
         }
     }
 
+    /**
+     * Build the digraph as the user enters input.
+     * @param userInput - The first user input token (first word followed by a white space.)
+     * @param scanner - The scanner object.
+     * @param diGraph - The current digraph.
+     */
     private static void addToGraph(String userInput, Scanner scanner, DiGraph diGraph) {
         Vertex firstItem = new Vertex(userInput);
 
@@ -49,6 +55,7 @@ public class Main {
             if (token.equals("")) {
                 continue;
             }
+
             Vertex vertex = new Vertex(token);
 
             diGraph.addVertex(vertex);
@@ -59,6 +66,10 @@ public class Main {
         }
     }
 
+    /**
+     * Show the digraph's dependencies for all added vertices.
+     * @param diGraph - The digraph object.
+     */
     private static void showDependencies(DiGraph diGraph) {
         System.out.println("Graph Edges:");
         System.out.println("================================");
