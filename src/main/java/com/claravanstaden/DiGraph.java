@@ -21,9 +21,9 @@ public class DiGraph {
     }
 
     /**
-     *
-     * @param from
-     * @param to
+     * Add a new edge in the digraph.
+     * @param from - The vertex where the edge should start.
+     * @param to - The vertex where the edge should end.
      */
     public void addEdge(Vertex from, Vertex to) {
         List<Edge> edges = digraph.get(from);
@@ -35,6 +35,11 @@ public class DiGraph {
         edges.add(new Edge(from, to));
     }
 
+    /**
+     * Calculate the dependencies of the vertex given.
+     * @param vertex - The vertex whose dependencies should be calculated.
+     * @return - An array list with the labels of the dependencies.
+     */
     public List<String> calculateDependencies(Vertex vertex) {
 
         List<Edge> edges = digraph.get(vertex);
@@ -60,6 +65,11 @@ public class DiGraph {
         return this.sortDependencyTokensAlphabetically(dependencyTokens);
     }
 
+    /**
+     * Calculate the dependencies using a breadth-first graph search.
+     * @param queue - The queue with the first neighbours of the vertex.
+     * @return - A list of edges that make up dependencies.
+     */
     private List<Edge> calculateVertexDependencies(LinkedList<Edge> queue) {
 
         List<Edge> dependencies = new ArrayList<>();
@@ -88,6 +98,10 @@ public class DiGraph {
         return dependencies;
     }
 
+    /**
+     * Print the dependencies, separated by a space.
+     * @param dependencyTokens - The list of dependencies.
+     */
     public void printDependencies(List<String> dependencyTokens) {
         for (String token : dependencyTokens) {
             System.out.print(token + " ");
@@ -96,6 +110,9 @@ public class DiGraph {
         System.out.println();
     }
 
+    /**
+     * Print the graph edges.
+     */
     public void printEdges() {
         for (Map.Entry<Vertex, List<Edge>> vertexListEntry : digraph.entrySet()) {
 
@@ -110,6 +127,9 @@ public class DiGraph {
         }
     }
 
+    /**
+     * Reset the visited flag on all the edges.
+     */
     private void resetVisited() {
         for (Map.Entry<Vertex, List<Edge>> vertexListEntry : digraph.entrySet()) {
 
