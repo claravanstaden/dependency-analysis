@@ -64,15 +64,15 @@ public class DiGraphTest {
     @Test
     public void testTokenADependencies() {
 
-        List<String> dependencies = diGraph.calculateDependencies(new Vertex("A"));
-        List<String> expected = new ArrayList<>();
-        expected.add("A");
-        expected.add("B");
-        expected.add("C");
-        expected.add("E");
-        expected.add("F");
-        expected.add("G");
-        expected.add("H");
+        List<Vertex> dependencies = diGraph.calculateDependencies(new Vertex("A"));
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("A"));
+        expected.add(new Vertex("B"));
+        expected.add(new Vertex("C"));
+        expected.add(new Vertex("E"));
+        expected.add(new Vertex("F"));
+        expected.add(new Vertex("G"));
+        expected.add(new Vertex("H"));
 
         assertEquals(expected, dependencies);
     }
@@ -80,14 +80,14 @@ public class DiGraphTest {
     @Test
     public void testTokenBDependencies() {
 
-        List<String> dependencies = diGraph.calculateDependencies(new Vertex("B"));
-        List<String> expected = new ArrayList<>();
-        expected.add("B");
-        expected.add("C");
-        expected.add("E");
-        expected.add("F");
-        expected.add("G");
-        expected.add("H");
+        List<Vertex> dependencies = diGraph.calculateDependencies(new Vertex("B"));
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("B"));
+        expected.add(new Vertex("C"));
+        expected.add(new Vertex("E"));
+        expected.add(new Vertex("F"));
+        expected.add(new Vertex("G"));
+        expected.add(new Vertex("H"));
 
         assertEquals(expected, dependencies);
     }
@@ -95,10 +95,10 @@ public class DiGraphTest {
     @Test
     public void testTokenCDependencies() {
 
-        List<String> dependencies = diGraph.calculateDependencies(new Vertex("C"));
-        List<String> expected = new ArrayList<>();
-        expected.add("C");
-        expected.add("G");
+        List<Vertex> dependencies = diGraph.calculateDependencies(new Vertex("C"));
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("C"));
+        expected.add(new Vertex("G"));
 
         assertEquals(expected, dependencies);
     }
@@ -106,16 +106,16 @@ public class DiGraphTest {
     @Test
     public void testTokenDDependencies() {
 
-        List<String> dependencies = diGraph.calculateDependencies(new Vertex("D"));
-        List<String> expected = new ArrayList<>();
-        expected.add("D");
-        expected.add("A");
-        expected.add("B");
-        expected.add("C");
-        expected.add("E");
-        expected.add("F");
-        expected.add("G");
-        expected.add("H");
+        List<Vertex> dependencies = diGraph.calculateDependencies(new Vertex("D"));
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("D"));
+        expected.add(new Vertex("A"));
+        expected.add(new Vertex("B"));
+        expected.add(new Vertex("C"));
+        expected.add(new Vertex("E"));
+        expected.add(new Vertex("F"));
+        expected.add(new Vertex("G"));
+        expected.add(new Vertex("H"));
 
         assertArrayEquals(expected.toArray(), dependencies.toArray());
     }
@@ -123,11 +123,11 @@ public class DiGraphTest {
     @Test
     public void testTokenEDependencies() {
 
-        List<String> dependencies = diGraph.calculateDependencies(new Vertex("E"));
-        List<String> expected = new ArrayList<>();
-        expected.add("E");
-        expected.add("F");
-        expected.add("H");
+        List<Vertex> dependencies = diGraph.calculateDependencies(new Vertex("E"));
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("E"));
+        expected.add(new Vertex("F"));
+        expected.add(new Vertex("H"));
 
         assertEquals(expected, dependencies);
     }
@@ -135,16 +135,16 @@ public class DiGraphTest {
     @Test
     public void testTokenFDependencies() {
 
-        List<String> dependencies = diGraph.calculateDependencies(new Vertex("F"));
-        List<String> expected = new ArrayList<>();
-        expected.add("F");
-        expected.add("H");
+        List<Vertex> dependencies = diGraph.calculateDependencies(new Vertex("F"));
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("F"));
+        expected.add(new Vertex("H"));
 
         assertEquals(expected, dependencies);
     }
 
     @Test
-    public void testCircularReference() {
+    public void testCircularDependency() {
 
         Vertex F = new Vertex("F");
         diGraph.addVertex(F);

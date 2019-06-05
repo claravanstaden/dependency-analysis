@@ -40,13 +40,13 @@ public class DiGraph {
      * @param vertex - The vertex whose dependencies should be calculated.
      * @return - An array list with the labels of the dependencies.
      */
-    public List<String> calculateDependencies(Vertex vertex) {
+    public List<Vertex> calculateDependencies(Vertex vertex) {
 
         List<Edge> edges = digraph.get(vertex);
 
-        List<String> dependencyTokens = new ArrayList<>();
+        List<Vertex> dependencyTokens = new ArrayList<>();
 
-        dependencyTokens.add(vertex.getLabel());
+        dependencyTokens.add(vertex);
 
         if (edges.size() == 0) {
             return dependencyTokens;
@@ -57,8 +57,8 @@ public class DiGraph {
         List<Edge> edgeDependencies = this.calculateVertexDependencies(queue);
 
         for (Edge edge : edgeDependencies) {
-            if (!dependencyTokens.contains(edge.getTo().getLabel())) {
-                dependencyTokens.add(edge.getTo().getLabel());
+            if (!dependencyTokens.contains(edge.getTo())) {
+                dependencyTokens.add(edge.getTo());
             }
         }
 
@@ -103,9 +103,9 @@ public class DiGraph {
      * Print the dependencies, separated by a space.
      * @param dependencyTokens - The list of dependencies.
      */
-    public void printDependencies(List<String> dependencyTokens) {
-        for (String token : dependencyTokens) {
-            System.out.print(token + " ");
+    public void printDependencies(List<Vertex> dependencyTokens) {
+        for (Vertex vertex : dependencyTokens) {
+            System.out.print(vertex.getLabel() + " ");
         }
 
         System.out.println();
@@ -148,11 +148,11 @@ public class DiGraph {
      * @param list - The unsorted dependency list.
      * @return - The sorted dependency list.
      */
-    private List<String> sortDependencyTokensAlphabetically(List<String> list) {
-        String firstToken = list.remove(0);
+    private List<Vertex> sortDependencyTokensAlphabetically(List<Vertex> list) {
+        Vertex firstToken = list.remove(0);
 
-        list.sort(String::compareToIgnoreCase);
-
+        list.sort((object1, object2) -> object1.getLabel().compareTo(object2.getLabel()));
+        
         list.add(0, firstToken);
 
         return list;
