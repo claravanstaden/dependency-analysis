@@ -12,10 +12,19 @@ public class DiGraph {
     public DiGraph() {
     }
 
+    /**
+     * Add a vertex to the digraph. Is only added if a vertex with the same label does not exist in the digraph.
+     * @param vertex - The first to be added.
+     */
     public void addVertex(Vertex vertex) {
         digraph.putIfAbsent(vertex, new ArrayList<>());
     }
 
+    /**
+     *
+     * @param from
+     * @param to
+     */
     public void addEdge(Vertex from, Vertex to) {
         List<Edge> edges = digraph.get(from);
 
@@ -24,6 +33,67 @@ public class DiGraph {
         }
 
         edges.add(new Edge(from, to));
+    }
+
+    public List<String> calculateDependencies(Vertex vertex) {
+
+        List<Edge> edges = digraph.get(vertex);
+
+        List<String> dependencyTokens = new ArrayList<>();
+
+        dependencyTokens.add(vertex.getLabel());
+
+        if (edges.size() == 0) {
+            return dependencyTokens;
+        }
+
+        LinkedList<Edge> queue = new LinkedList<>(edges);
+
+        List<Edge> edgeDependencies = this.calculateVertexDependencies(queue);
+
+        for (Edge edge : edgeDependencies) {
+            if (!dependencyTokens.contains(edge.getTo().getLabel())) {
+                dependencyTokens.add(edge.getTo().getLabel());
+            }
+        }
+
+        return this.sortDependencyTokensAlphabetically(dependencyTokens);
+    }
+
+    private List<Edge> calculateVertexDependencies(LinkedList<Edge> queue) {
+
+        List<Edge> dependencies = new ArrayList<>();
+
+        for (Edge item : queue) {
+            item.setVisited(true);
+        }
+
+        while (!queue.isEmpty()) {
+            Edge element = queue.remove();
+            if (!dependencies.contains(element)) {
+                dependencies.add(element);
+            }
+
+            List<Edge> neighbours = digraph.get(element.getTo());
+
+            for (Edge neighbour : neighbours) {
+                if (neighbour != null && !neighbour.getVisited()) {
+                    queue.add(neighbour);
+                }
+            }
+        }
+
+        this.resetVisited();
+
+        return dependencies;
+    }
+
+    public void printDependencies(List<String> dependencyTokens) {
+        for (String token : dependencyTokens) {
+            System.out.print(token + " ");
+        }
+
+        System.out.println();
     }
 
     public void printEdges() {
@@ -40,56 +110,30 @@ public class DiGraph {
         }
     }
 
-    public void printDependenciesAlphabetically(Vertex vertex) {
+    private void resetVisited() {
+        for (Map.Entry<Vertex, List<Edge>> vertexListEntry : digraph.entrySet()) {
 
-        vertex.printLabel();
+            List<Edge> edges = (List<Edge>) ((Map.Entry) vertexListEntry).getValue();
 
-        List<Edge> edges = digraph.get(vertex);
-
-        if (edges.size() == 0) {
-            return;
-        }
-
-        LinkedList<Edge> queue = new LinkedList<>(edges);
-
-        List<Edge> dependencies = this.calculateVertexDependencies(queue);
-
-        this.sortAlphabetically(dependencies);
-
-        for (Edge edge : dependencies) {
-            edge.getTo().printLabel();
-        }
-
-        System.out.println();
-    }
-
-    private List<Edge> calculateVertexDependencies(LinkedList<Edge> queue) {
-
-        List<Edge> dependencies = new ArrayList<>();
-        List<String> visited = new ArrayList<>();
-
-        for (Edge item : queue) {
-            visited.add(item.getTo().getLabel());
-        }
-
-        while (!queue.isEmpty()) {
-            Edge element = queue.remove();
-            dependencies.add(element);
-
-            List<Edge> neighbours = digraph.get(element.getTo());
-
-            for (Edge neighbour : neighbours) {
-                if (neighbour != null && !visited.contains(neighbour.getTo().getLabel())) {
-                    queue.add(neighbour);
-                    visited.add(neighbour.getTo().getLabel());
-                }
+            for (Edge edge : edges) {
+                edge.setVisited(false);
             }
         }
-
-        return dependencies;
     }
 
-    private void sortAlphabetically(List<Edge> sorted) {
-        sorted.sort(Comparator.comparing(edge -> edge.getTo().getLabel()));
+    /**
+     * Sort the dependency tokens alphabetically. Don't sort the first token in the list, since it indicates
+     * the token of which dependencies will be listed.
+     * @param list - The unsorted dependency list.
+     * @return - The sorted dependency list.
+     */
+    private List<String> sortDependencyTokensAlphabetically(List<String> list) {
+        String firstToken = list.remove(0);
+
+        list.sort(String::compareToIgnoreCase);
+
+        list.add(0, firstToken);
+
+        return list;
     }
 }
