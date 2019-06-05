@@ -144,6 +144,103 @@ public class DiGraphTest {
     }
 
     @Test
+    public void testTokenAInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("A"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("A"));
+        expected.add(new Vertex("D"));
+
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
+    public void testTokenBInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("B"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("B"));
+        expected.add(new Vertex("A"));
+
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
+    public void testTokenCInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("C"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("C"));
+        expected.add(new Vertex("A"));
+        expected.add(new Vertex("B"));
+
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
+    public void testTokenDInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("D"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("D"));
+
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
+    public void testTokenEInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("E"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("E"));
+        expected.add(new Vertex("B"));
+
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
+    public void testTokenFInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("F"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("F"));
+        expected.add(new Vertex("D"));
+        expected.add(new Vertex("E"));
+        
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
+    public void testTokenGInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("G"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("G"));
+        expected.add(new Vertex("C"));
+
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
+    public void testTokenHInverseDependencies() {
+
+        List<Vertex> dependencies = diGraph.calculateInverseDependencies(new Vertex("H"));
+
+        List<Vertex> expected = new ArrayList<>();
+        expected.add(new Vertex("H"));
+        expected.add(new Vertex("F"));
+
+        assertEquals(expected, dependencies);
+    }
+
+    @Test
     public void testCircularDependency() {
 
         Vertex F = new Vertex("F");

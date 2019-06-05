@@ -86,5 +86,15 @@ public class Main {
 
             diGraph.printDependencies(diGraph.calculateDependencies(vertex));
         }
+
+        System.out.println("Inverse Dependencies:");
+        System.out.println("================================");
+
+        for (Map.Entry<Vertex, List<Edge>> vertexListEntry : diGraph.getDigraph().entrySet()) {
+
+            Vertex vertex = (Vertex) ((Map.Entry) vertexListEntry).getKey();
+
+            diGraph.printDependencies(diGraph.calculateInverseDependencies(vertex));
+        }
     }
 }

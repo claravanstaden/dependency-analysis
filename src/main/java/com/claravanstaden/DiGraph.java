@@ -100,6 +100,31 @@ public class DiGraph {
     }
 
     /**
+     * Calculate the inverse dependencies of the vertex given.
+     * @param vertex - The vertex whose dependencies should be calculated.
+     * @return - An array list with the labels of the dependencies.
+     */
+    public List<Vertex> calculateInverseDependencies(Vertex vertex) {
+
+        List<Vertex> inverseDependencies = new ArrayList<>();
+        inverseDependencies.add(vertex);
+
+        for (Map.Entry<Vertex, List<Edge>> vertexListEntry : digraph.entrySet()) {
+
+            Vertex digraphVertex = (Vertex) ((Map.Entry) vertexListEntry).getKey();
+            List<Edge> edges = (List<Edge>) ((Map.Entry) vertexListEntry).getValue();
+
+            for (Edge edge : edges) {
+                if (edge.getTo().equals(vertex) && !inverseDependencies.contains(digraphVertex)) {
+                    inverseDependencies.add(digraphVertex);
+                }
+            }
+        }
+
+        return inverseDependencies;
+    }
+
+    /**
      * Print the dependencies, separated by a space.
      * @param dependencyTokens - The list of dependencies.
      */
@@ -152,7 +177,7 @@ public class DiGraph {
         Vertex firstToken = list.remove(0);
 
         list.sort((object1, object2) -> object1.getLabel().compareTo(object2.getLabel()));
-        
+
         list.add(0, firstToken);
 
         return list;
