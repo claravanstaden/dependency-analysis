@@ -26,12 +26,4 @@ public class Vertex {
     public String getLabel() {
         return label;
     }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public void printLabel() {
-        System.out.print(this.getLabel() + " ");
-    }
 }

@@ -176,7 +176,7 @@ public class DiGraph {
     private List<Vertex> sortDependencyTokensAlphabetically(List<Vertex> list) {
         Vertex firstToken = list.remove(0);
 
-        list.sort((object1, object2) -> object1.getLabel().compareTo(object2.getLabel()));
+        list.sort(Comparator.comparing(Vertex::getLabel));
 
         list.add(0, firstToken);
 

@@ -11,20 +11,8 @@ public class Edge {
         this.from = from;
     }
 
-    public Vertex getFrom() {
-        return from;
-    }
-
-    public void setFrom(Vertex from) {
-        this.from = from;
-    }
-
     public Vertex getTo() {
         return to;
-    }
-
-    public void setTo(Vertex to) {
-        this.to = to;
     }
 
     public Boolean getVisited() {
