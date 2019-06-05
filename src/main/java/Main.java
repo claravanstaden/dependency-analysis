@@ -25,45 +25,55 @@ public class Main {
             userInput = scanner.next();
 
             if ("done".equals(userInput)) {
-
-                System.out.println("Graph Edges:");
-
-                diGraph.printEdges();
-
-                System.out.println("Dependencies:");
-
-                for (Map.Entry<Vertex, List<Edge>> vertexListEntry : diGraph.getDigraph().entrySet()) {
-
-                    Vertex vertex = (Vertex) ((Map.Entry) vertexListEntry).getKey();
-
-                    diGraph.printDependencies(diGraph.calculateDependencies(vertex));
-                }
+                showDependencies(diGraph);
 
                 System.exit(0);
             }
 
-            Vertex firstItem = new Vertex(userInput);
+            addToGraph(userInput, scanner, diGraph);
+        }
+    }
 
-            diGraph.addVertex(firstItem);
+    private static void addToGraph(String userInput, Scanner scanner, DiGraph diGraph) {
+        Vertex firstItem = new Vertex(userInput);
 
-            String input = scanner.nextLine();
+        diGraph.addVertex(firstItem);
 
-            String[] tokens = input.split(" ");
+        String input = scanner.nextLine();
 
-            System.out.println("Adding vertex [" + userInput + "].");
+        String[] tokens = input.split(" ");
 
-            for (String token : tokens) {
-                if (token.equals("")) {
-                    continue;
-                }
-                Vertex vertex = new Vertex(token);
+        System.out.println("Adding vertex [" + userInput + "].");
 
-                diGraph.addVertex(vertex);
-
-                diGraph.addEdge(firstItem, vertex);
-
-                System.out.println("Adding vertex [" + token + "]. Adding edge [" + userInput + "] to [" + token + "].");
+        for (String token : tokens) {
+            if (token.equals("")) {
+                continue;
             }
+            Vertex vertex = new Vertex(token);
+
+            diGraph.addVertex(vertex);
+
+            diGraph.addEdge(firstItem, vertex);
+
+            System.out.println("Adding vertex [" + token + "]. Adding edge [" + userInput + "] to [" + token + "].");
+        }
+    }
+
+    private static void showDependencies(DiGraph diGraph) {
+        System.out.println("Graph Edges:");
+        System.out.println("================================");
+        System.out.println();
+
+        diGraph.printEdges();
+
+        System.out.println("Dependencies:");
+        System.out.println("================================");
+
+        for (Map.Entry<Vertex, List<Edge>> vertexListEntry : diGraph.getDigraph().entrySet()) {
+
+            Vertex vertex = (Vertex) ((Map.Entry) vertexListEntry).getKey();
+
+            diGraph.printDependencies(diGraph.calculateDependencies(vertex));
         }
     }
 }

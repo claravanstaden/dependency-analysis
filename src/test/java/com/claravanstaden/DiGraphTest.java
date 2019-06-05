@@ -142,4 +142,16 @@ public class DiGraphTest {
 
         assertEquals(expected, dependencies);
     }
+
+    @Test
+    public void testCircularReference() {
+
+        Vertex F = new Vertex("F");
+        diGraph.addVertex(F);
+        Vertex H = new Vertex("H");
+        diGraph.addVertex(H);
+        diGraph.addEdge(H, F);
+
+        diGraph.calculateDependencies(new Vertex("F"));
+    }
 }

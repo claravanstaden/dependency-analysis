@@ -89,6 +89,7 @@ public class DiGraph {
             for (Edge neighbour : neighbours) {
                 if (neighbour != null && !neighbour.getVisited()) {
                     queue.add(neighbour);
+                    neighbour.setVisited(true);
                 }
             }
         }
