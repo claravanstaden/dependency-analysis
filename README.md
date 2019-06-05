@@ -1,7 +1,7 @@
 # dependency-analysis
 Takes tokens and their dependencies and calculates the full set of transitive dependencies using a directed graph.
 
-#Install Steps
+# Install Steps
 
 `mvn clean install`
 
